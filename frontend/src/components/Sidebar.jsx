@@ -6,34 +6,47 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const [isActive, setIsActive] = useState('');
 
-  // Update the active state when a button is clicked
   const handleonClick = (name) => {
     setIsActive(name);
   };
 
   return (
-    <div>
-      <div className="bg-black pt-16 flex flex-col gap-0 h-[800px]">
-        <div className={` ${isActive === 'jobs' ? 'bg-red-300' : ''} `}>
+    <header className="bg-black py-4 shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo Section */}
+        <Link to="/" onClick={() => handleonClick('home')}>
+          <img src={logo192} alt="Logo" className="h-8 w-8" />
+        </Link>
+
+        {/* Navigation Links */}
+        <nav className="flex space-x-6">
           <Link to="/" onClick={() => handleonClick('jobs')}>
-            <ButtonComp text={'jobs'} img={logo192} isActive={isActive} />
+            <ButtonComp
+              text="Jobs"
+              img={logo192}
+              isActive={isActive === 'jobs'}
+              className={isActive === 'jobs' ? 'text-red-300' : 'text-white'}
+            />
           </Link>
-          <div className="h-[2px] bg-red-300"></div>
-        </div>
-        <div className={`${isActive === 'candidates' ? 'bg-red-300' : ''} `}>
           <Link to="/candidates" onClick={() => handleonClick('candidates')}>
-            <ButtonComp text={'candidates'} img={logo192} isActive={isActive} />
+            <ButtonComp
+              text="Candidates"
+              img={logo192}
+              isActive={isActive === 'candidates'}
+              className={isActive === 'candidates' ? 'text-red-300' : 'text-white'}
+            />
           </Link>
-          <div className="h-[2px] bg-red-300"></div>
-        </div>
-        <div className={`${isActive === 'assessments' ? 'bg-red-300' : ''} `}>
           <Link to="/assessments" onClick={() => handleonClick('assessments')}>
-            <ButtonComp text={'assessments'} img={logo192} isActive={isActive} />
+            <ButtonComp
+              text="Assessments"
+              img={logo192}
+              isActive={isActive === 'assessments'}
+              className={isActive === 'assessments' ? 'text-red-300' : 'text-white'}
+            />
           </Link>
-          <div className="h-[2px] bg-red-300"></div>
-        </div>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 };
 

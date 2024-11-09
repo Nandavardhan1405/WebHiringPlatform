@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   InputLabel,
   MenuItem,
@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const App = () => {
+const Assessments = () => {
   const [job, setJob] = useState("");
   const [showQuestion, setShowQuestion] = useState(false);
   const [question, setQuestion] = useState("");
@@ -51,7 +51,6 @@ const App = () => {
       const newQuestion = { question, options, answer: ans };
       const updatedQuestions = [...questions, newQuestion];
       setQuestions(updatedQuestions);
-
       localStorage.setItem(job, JSON.stringify(updatedQuestions));
       deleteQuestion();
     } else {
@@ -76,19 +75,16 @@ const App = () => {
   const jobs = ["Job 1", "Job 2", "Job 3", "Job 4", "Job 5", "Job 6"];
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 min-h-screen p-6">
       {/* Job Dropdown */}
-      <FormControl sx={{ m: 1, minWidth: 150, display: "inline-block" }}>
-        <InputLabel id="job-select-label">
-          Job
-        </InputLabel>
+      <FormControl fullWidth className="mb-6">
+        <InputLabel id="job-select-label">Job</InputLabel>
         <Select
           labelId="job-select-label"
           id="job-select"
           value={job}
           label="Job"
           onChange={handleChange}
-          className="w-28"
         >
           {jobs.map((job, index) => (
             <MenuItem key={index} value={job}>
@@ -100,49 +96,36 @@ const App = () => {
       </FormControl>
 
       {/* Display Saved Questions */}
-      <Box sx={{ mt: 4 }}>
+      <Box className="mt-6">
         <Typography
           variant="h5"
-          sx={{ mb: 2, fontWeight: "bold", color: "#2e7d32" }}
+          className="font-bold text-indigo-700 mb-4"
         >
           Saved Questions for {job}
         </Typography>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {questions.map((q, index) => (
             <Grid item xs={12} md={6} key={index}>
-              <Card
-                variant="outlined"
-                sx={{
-                  backgroundColor: "#f0f4f7",
-                  borderRadius: "8px",
-                  position: "relative",
-                }}
-              >
+              <Card className="bg-indigo-50 rounded-lg shadow-md">
                 <CardContent>
                   <IconButton
                     aria-label="delete"
-                    sx={{ position: "absolute", top: "5px", right: "5px" }}
+                    className="float-right"
                     onClick={() => handleDeleteQuestion(index)}
                   >
                     <DeleteIcon color="error" />
                   </IconButton>
-                  <Typography variant="h6" color="primary">
+                  <Typography variant="h6" className="text-indigo-700">
                     Question {index + 1}: {q.question}
                   </Typography>
-                  <ul style={{ paddingLeft: "20px", margin: "10px 0" }}>
+                  <ul className="pl-5 mt-2">
                     {q.options.map((option, i) => (
-                      <li key={i}>
-                        <Typography variant="body2" color="textSecondary">
-                          Option {i + 1}: {option}
-                        </Typography>
+                      <li key={i} className="text-gray-600">
+                        Option {i + 1}: {option}
                       </li>
                     ))}
                   </ul>
-                  <Typography
-                    variant="body1"
-                    color="secondary"
-                    sx={{ fontWeight: "bold" }}
-                  >
+                  <Typography className="text-gray-800 font-semibold mt-2">
                     Answer: {q.answer}
                   </Typography>
                 </CardContent>
@@ -154,15 +137,7 @@ const App = () => {
 
       {/* Question Input Form */}
       {showQuestion && (
-        <Box
-          sx={{
-            mt: 3,
-            p: 2,
-            backgroundColor: "#f9f9f9",
-            borderRadius: "8px",
-            boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.2)",
-          }}
-        >
+        <Box className="mt-6 p-4 bg-white rounded-lg shadow-md">
           <TextField
             label="Question"
             variant="outlined"
@@ -170,7 +145,7 @@ const App = () => {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             required
-            sx={{ mb: 2 }}
+            className="mb-4"
           />
 
           <Grid container spacing={2}>
@@ -188,7 +163,7 @@ const App = () => {
             ))}
           </Grid>
 
-          <FormControl fullWidth sx={{ mt: 2 }}>
+          <FormControl fullWidth className="mt-4">
             <InputLabel id="answer-select-label">Answer</InputLabel>
             <Select
               labelId="answer-select-label"
@@ -198,14 +173,14 @@ const App = () => {
               required
             >
               {options.map((_, index) => (
-                <MenuItem key={index} value={`Option ${index + 1}`} required>
+                <MenuItem key={index} value={`Option ${index + 1}`}>
                   Option {index + 1}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
 
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+          <div className="flex gap-4 mt-4">
             <Button
               variant="contained"
               color="success"
@@ -216,36 +191,31 @@ const App = () => {
             <Button variant="outlined" color="error" onClick={deleteQuestion}>
               Cancel
             </Button>
-          </Box>
+          </div>
         </Box>
       )}
 
-      
-      <Button
-        variant="outlined"
-        sx={{
-          mt: 2,
-          fontWeight: "bold",
-          color: "#2e7d32",
-          borderColor: "#2e7d32",
-        }}
-        onClick={addQuestion}
-      >
-        Add Question
-      </Button>
-
-    
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSubmitAssessment}
-        disabled={!questions.length}
-        sx={{ mt: 2, ml: 2 }}
-      >
-        Submit Assessment
-      </Button>
+      {/* Buttons */}
+      <div className="mt-6">
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={addQuestion}
+          className="mr-4"
+        >
+          Add Question
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmitAssessment}
+          disabled={!questions.length}
+        >
+          Submit Assessment
+        </Button>
+      </div>
     </div>
   );
 };
 
-export default App;
+export default Assessments;
