@@ -1,53 +1,57 @@
 import React, { useState } from 'react';
-import ButtonComp from './ButtonComp';
-import logo192 from '../assets/logo192.png';
 import { Link } from 'react-router-dom';
+import { Home, Users, Briefcase, ClipboardCheck } from 'lucide-react';
 
-const Sidebar = () => {
-  const [isActive, setIsActive] = useState('');
+const NavigationHeader = () => {
+  const [activeItem, setActiveItem] = useState('home');
 
-  const handleonClick = (name) => {
-    setIsActive(name);
-  };
+  const navItems = [
+    { id: 'home', label: 'Home', icon: Home, path: '/' },
+    { id: 'jobs', label: 'Jobs', icon: Briefcase, path: '/' },
+    { id: 'candidates', label: 'Candidates', icon: Users, path: '/candidates' },
+    { id: 'assessments', label: 'Assessments', icon: ClipboardCheck, path: '/assessments' }
+  ];
 
   return (
-    <header className="bg-black py-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Logo Section */}
-        <Link to="/" onClick={() => handleonClick('home')}>
-          <img src={logo192} alt="Logo" className="h-8 w-8" />
-        </Link>
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="container mx-auto px-4">
+        <nav className="flex items-center justify-between h-16">
+          {/* Logo Section */}
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2"
+            onClick={() => setActiveItem('home')}
+          >
+            <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Home className="h-5 w-5 text-white" />
+            </div>
+            <span className="font-semibold text-gray-900">Dashboard</span>
+          </Link>
 
-        {/* Navigation Links */}
-        <nav className="flex space-x-6">
-          <Link to="/" onClick={() => handleonClick('jobs')}>
-            <ButtonComp
-              text="Jobs"
-              img={logo192}
-              isActive={isActive === 'jobs'}
-              className={isActive === 'jobs' ? 'text-red-300' : 'text-white'}
-            />
-          </Link>
-          <Link to="/candidates" onClick={() => handleonClick('candidates')}>
-            <ButtonComp
-              text="Candidates"
-              img={logo192}
-              isActive={isActive === 'candidates'}
-              className={isActive === 'candidates' ? 'text-red-300' : 'text-white'}
-            />
-          </Link>
-          <Link to="/assessments" onClick={() => handleonClick('assessments')}>
-            <ButtonComp
-              text="Assessments"
-              img={logo192}
-              isActive={isActive === 'assessments'}
-              className={isActive === 'assessments' ? 'text-red-300' : 'text-white'}
-            />
-          </Link>
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-1">
+            {navItems.slice(1).map(({ id, label, icon: Icon, path }) => (
+              <Link
+                key={id}
+                to={path}
+                onClick={() => setActiveItem(id)}
+                className={`
+                  flex items-center px-3 py-2 rounded-lg text-sm font-medium
+                  transition-colors duration-150 ease-in-out
+                  ${activeItem === id 
+                    ? 'bg-blue-50 text-blue-600' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
+                `}
+              >
+                <Icon className="h-4 w-4 mr-2" />
+                {label}
+              </Link>
+            ))}
+          </div>
         </nav>
       </div>
     </header>
   );
 };
 
-export default Sidebar;
+export default NavigationHeader;

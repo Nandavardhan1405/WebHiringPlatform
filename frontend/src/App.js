@@ -11,12 +11,12 @@ function App() {
     <BrowserRouter>
       <div className="flex flex-col h-screen">
         {/* Header (formerly Sidebar, now takes top 15%) */}
-        <div className="w-full" style={{ height: '15%' }}>
+        <div className="w-full" >
           <Sidebar /> {/* Sidebar component is now a header */}
         </div>
 
         {/* Main content (dynamically loaded pages take remaining 85% height) */}
-        <div className="w-full flex-1 overflow-y-auto" style={{ height: '85%' }}>
+        <div className="w-full flex-1 overflow-y-auto h-auto" >
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/candidates" element={<Candidates />} />
