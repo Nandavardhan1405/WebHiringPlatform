@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Download, ArrowLeft } from "lucide-react";
 
 import { Badge, Button, Select } from "./ind.js";
+import { useNavigate } from "react-router-dom";
 
 const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   const [showAlert, setShowAlert] = useState(false);
 
+  const navigate = useNavigate();
   //console.log(candidate);
 
   const handleStatusUpdate = (newStatus) => {
@@ -14,11 +16,16 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
     setTimeout(() => setShowAlert(false), 3000);
   };
 
+  const goBack = ()=>{
+    onBack();
+    navigate(-1);
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
       <div className="bg-white rounded-lg shadow-lg max-w-3xl mx-auto w-full p-6">
         <Button
-          onClick={onBack}
+          onClick={()=>{goBack()}}
           variant="secondary"
           className="mb-6"
         >
