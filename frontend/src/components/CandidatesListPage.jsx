@@ -1,6 +1,6 @@
 import React from "react";
 import { Search, Download } from "lucide-react";
-import { Badge, Button } from "./ind.js";
+import { Badge, Button } from "./SupportComponents.jsx";
 
 const statusColors = {
   "Under Review": "bg-yellow-100 text-yellow-800",

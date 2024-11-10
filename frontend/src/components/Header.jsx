@@ -7,7 +7,7 @@ const NavigationHeader = () => {
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home, path: '/' },
-    { id: 'jobs', label: 'Jobs', icon: Briefcase, path: '/' },
+    { id: 'jobs', label: 'Jobs', icon: Briefcase, path: '/jobs' },
     { id: 'assessments', label: 'Assessments', icon: ClipboardCheck, path: '/assessments' }
   ];
 
@@ -24,7 +24,7 @@ const NavigationHeader = () => {
             <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <Home className="h-5 w-5 text-white" />
             </div>
-            <span className="font-semibold text-gray-900">Dashboard</span>
+            <span className="font-semibold text-gray-900">HOME</span>
           </Link>
 
           {/* Navigation Links */}

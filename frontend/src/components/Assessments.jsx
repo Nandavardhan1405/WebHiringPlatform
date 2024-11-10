@@ -26,6 +26,7 @@ const Assessments = () => {
   const [ans, setAns] = useState("");
   const [questions, setQuestions] = useState([]);
   const [errors, setErrors] = useState({});
+  const [editingQuestionId, setEditingQuestionId] = useState(null);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -102,6 +103,7 @@ const Assessments = () => {
     setSelectedJob(jobId);
     setQuestions([]);
     setShowQuestion(false);
+    setEditingQuestionId(null);
   };
 
   const resetForm = () => {
@@ -110,48 +112,85 @@ const Assessments = () => {
     setOptions(["", "", "", ""]);
     setAns("");
     setErrors({});
+    setEditingQuestionId(null);
+  };
+
+  const handleEditQuestion = (questionId) => {
+    const questionToEdit = questions.find((q) => q.id === questionId);
+    if (questionToEdit) {
+      setQuestion(questionToEdit.question);
+      setOptions(questionToEdit.options);
+      setAns(questionToEdit.answer);
+      setEditingQuestionId(questionId);
+      setShowQuestion(true);
+      setErrors({});
+    }
   };
 
   const handleAddQuestion = () => {
     if (!validateQuestion()) return;
 
     try {
-      const newQuestion = {
-        id: Date.now().toString(),
+      const questionData = {
         question,
         options,
         answer: ans,
-        createdAt: new Date().toISOString(),
       };
 
-      // Update the jobs array with the new question
-      const updatedJobs = jobs.map((job) => {
-        if (job.id === selectedJob) {
-          return {
-            ...job,
-            assignments: [...(job.assignments || []), newQuestion],
-          };
-        }
-        return job;
-      });
+      let updatedJobs;
+      if (editingQuestionId) {
+        // Update existing question
+        updatedJobs = jobs.map((job) => {
+          if (job.id === selectedJob) {
+            return {
+              ...job,
+              assignments: (job.assignments || []).map((q) =>
+                q.id === editingQuestionId
+                  ? { ...q, ...questionData, updatedAt: new Date().toISOString() }
+                  : q
+              ),
+            };
+          }
+          return job;
+        });
+      } else {
+        // Add new question
+        const newQuestion = {
+          id: Date.now().toString(),
+          ...questionData,
+          createdAt: new Date().toISOString(),
+        };
+
+        updatedJobs = jobs.map((job) => {
+          if (job.id === selectedJob) {
+            return {
+              ...job,
+              assignments: [...(job.assignments || []), newQuestion],
+            };
+          }
+          return job;
+        });
+      }
 
       // Save to localStorage
       localStorage.setItem("jobs", JSON.stringify(updatedJobs));
       setJobs(updatedJobs);
 
       // Update local questions state
-      setQuestions((prev) => [...prev, newQuestion]);
+      const jobData = updatedJobs.find((j) => j.id === selectedJob);
+      setQuestions(jobData.assignments || []);
 
-      showSnackbar("Question added successfully");
+      showSnackbar(
+        `Question ${editingQuestionId ? "updated" : "added"} successfully`
+      );
       resetForm();
     } catch (error) {
-      showSnackbar("Error saving question", "error");
+      showSnackbar(`Error ${editingQuestionId ? "updating" : "saving"} question`, "error");
     }
   };
 
   const handleDeleteQuestion = (questionId) => {
     try {
-      // Update the jobs array by removing the question
       const updatedJobs = jobs.map((job) => {
         if (job.id === selectedJob) {
           return {
@@ -164,12 +203,13 @@ const Assessments = () => {
         return job;
       });
 
-      // Save to localStorage
       localStorage.setItem("jobs", JSON.stringify(updatedJobs));
       setJobs(updatedJobs);
-
-      // Update local questions state
       setQuestions((prev) => prev.filter((q) => q.id !== questionId));
+      
+      if (editingQuestionId === questionId) {
+        resetForm();
+      }
 
       showSnackbar("Question deleted successfully");
     } catch (error) {
@@ -184,7 +224,6 @@ const Assessments = () => {
     }
 
     try {
-      // Update the job's status or perform any other submission logic
       const updatedJobs = jobs.map((job) => {
         if (job.id === selectedJob) {
           return {
@@ -267,7 +306,10 @@ const Assessments = () => {
                           {q.question}
                         </p>
                         <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                          <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200">
+                          <button 
+                            onClick={() => handleEditQuestion(q.id)}
+                            className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200"
+                          >
                             <Pencil className="w-4 h-4 text-slate-600" />
                           </button>
                           <button
@@ -400,12 +442,11 @@ const Assessments = () => {
                       className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors duration-200 font-medium shadow-lg shadow-green-200 hover:shadow-xl hover:shadow-green-200/50"
                     >
                       <CheckCircle2 className="w-5 h-5" />
-                      Save Question
+                      {editingQuestionId ? "Update Question" : "Save Question"}
                     </button>
                     <button
                       onClick={resetForm}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition
-                -colors duration-200 font-medium"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors duration-200 font-medium"
                     >
                       <XCircle className="w-5 h-5" />
                       Cancel
