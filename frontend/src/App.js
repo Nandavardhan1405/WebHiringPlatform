@@ -19,7 +19,7 @@ function App() {
         <div className="w-full flex-1 overflow-y-auto h-auto" >
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/candidates" element={<Candidates />} />
+            <Route path="/candidates/:jobId" element={<Candidates />} />
             <Route path="/assessments" element={<Assessments />} />
           </Routes>
         </div>

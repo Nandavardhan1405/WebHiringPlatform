@@ -6,6 +6,8 @@ import { Badge, Button, Select } from "./ind.js";
 const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   const [showAlert, setShowAlert] = useState(false);
 
+  //console.log(candidate);
+
   const handleStatusUpdate = (newStatus) => {
     onStatusUpdate(candidate.id, newStatus);
     setShowAlert(true);

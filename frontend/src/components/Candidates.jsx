@@ -1,78 +1,25 @@
 import React, { useState, useEffect } from "react";
 import CandidateListPage from "./CandidatesListPage";
 import CandidateDetailsPage from "./CandidatesDetailsPage";
-
-const initialCandidates = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      phone: "555-1234",
-      experience: "5 years",
-      skills: ["JavaScript", "React", "Node.js"],
-      status: "Under Review",
-      applicationDate: "2023-07-15",
-      notes: "Strong candidate with excellent technical skills",
-      resume: "path/to/john_doe_resume.pdf"
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      phone: "555-5678",
-      experience: "3 years",
-      skills: ["UI/UX Design", "Photoshop", "Figma"],
-      status: "Interview Scheduled",
-      applicationDate: "2023-08-01",
-      notes: "Creative designer with a keen eye for detail",
-      resume: "path/to/jane_smith_resume.pdf"
-    },
-    {
-      id: 3,
-      name: "Alice Johnson",
-      email: "alice.johnson@example.com",
-      phone: "555-8765",
-      experience: "4 years",
-      skills: ["Python", "Django", "Machine Learning"],
-      status: "Rejected",
-      applicationDate: "2023-06-20",
-      notes: "Good skills, but not a fit for this position",
-      resume: "path/to/alice_johnson_resume.pdf"
-    },
-    {
-      id: 4,
-      name: "Bob Williams",
-      email: "bob.williams@example.com",
-      phone: "555-4321",
-      experience: "6 years",
-      skills: ["Project Management", "Agile", "Scrum"],
-      status: "Hired",
-      applicationDate: "2023-05-12",
-      notes: "Great leadership qualities and technical knowledge",
-      resume: "path/to/bob_williams_resume.pdf"
-    }
-];
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [candidates, setCandidates] = useState(initialCandidates);
+  const [candidates, setCandidates] = useState([]);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
 
-  // useEffect(() => {
-  //   try{
-  //     const savedCandidates = localStorage.getItem("candidates");
-  //   if (savedCandidates) {
-  //     setCandidates(JSON.parse(savedCandidates));
-  //   }
-  //   }
-  //   catch(error){
-  //     console.log(error)
-  //   }
-  // },[]);
+  const { jobId } = useParams();
+  console.log(jobId)
+  const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem("candidates", JSON.stringify(candidates));
-  }, [candidates]);
+    let jobData = JSON.parse(localStorage.getItem("jobs"));
+    const job = jobData.find((job) => job.id == jobId);
+
+    console.log(job);
+    setCandidates(job?.candidates || []);
+  }, [jobId]);
 
   const handleSelectCandidate = (candidate) => {
     setSelectedCandidate(candidate);
@@ -80,32 +27,59 @@ const App = () => {
 
   const handleBackToList = () => {
     setSelectedCandidate(null);
+    navigate(0);
   };
 
   const handleStatusUpdate = (id, newStatus) => {
-    setCandidates((prevCandidates) =>
-      prevCandidates.map((candidate) =>
-        candidate.id === id ? { ...candidate, status: newStatus } : candidate
-      )
+    const updatedCandidates = candidates.map((candidate) =>
+      candidate.id == id ? { ...candidate, status: newStatus } : candidate
     );
+
+    let jobData = JSON.parse(localStorage.getItem("jobs"));
+    if (jobData) {
+      const jobIndex = jobData.findIndex((job) => job.id == jobId);
+      if (jobIndex !== -1) {
+        jobData[jobIndex] = {
+          ...jobData[jobIndex],
+          candidates: updatedCandidates,
+        };
+        localStorage.setItem("jobs", JSON.stringify(jobData));
+      }
+    }
+
+    setCandidates(updatedCandidates);
+    setSelectedCandidate((prevData) => ({ ...prevData, status: newStatus }));
   };
-// console.log(candidates)
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {selectedCandidate ? (
-        <CandidateDetailsPage
-          candidate={selectedCandidate}
-          onBack={handleBackToList}
-          onStatusUpdate={handleStatusUpdate}
-        />
-      ) : (
-        <CandidateListPage
-          candidates={candidates}
-          onSelectCandidate={handleSelectCandidate}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-      )}
+      <div className="p-4">
+        <button
+          onClick={()=>{navigate(-1)}}
+          className="group flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+        >
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          <span className="relative">
+            Back to Job Listings
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-200 transform scale-x-0 transition-transform group-hover:scale-x-100"></span>
+          </span>
+        </button>
+
+        {selectedCandidate ? (
+          <CandidateDetailsPage
+            candidate={selectedCandidate}
+            onBack={handleBackToList}
+            onStatusUpdate={handleStatusUpdate}
+          />
+        ) : (
+          <CandidateListPage
+            candidates={candidates}
+            onSelectCandidate={handleSelectCandidate}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        )}
+      </div>
     </div>
   );
 };

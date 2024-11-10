@@ -8,7 +8,6 @@ const NavigationHeader = () => {
   const navItems = [
     { id: 'home', label: 'Home', icon: Home, path: '/' },
     { id: 'jobs', label: 'Jobs', icon: Briefcase, path: '/' },
-    { id: 'candidates', label: 'Candidates', icon: Users, path: '/candidates' },
     { id: 'assessments', label: 'Assessments', icon: ClipboardCheck, path: '/assessments' }
   ];
 
