@@ -16,16 +16,13 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
     setTimeout(() => setShowAlert(false), 3000);
   };
 
-  const goBack = ()=>{
-    onBack();
-    navigate(-1);
-  }
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
       <div className="bg-white rounded-lg shadow-lg max-w-3xl mx-auto w-full p-6">
         <Button
-          onClick={()=>{goBack()}}
+          onClick={()=>{onBack()}}
           variant="secondary"
           className="mb-6"
         >
