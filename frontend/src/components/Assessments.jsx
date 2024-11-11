@@ -155,6 +155,7 @@ const Assessments = () => {
         });
       } else {
         // Add new question
+
         const newQuestion = {
           id: Date.now().toString(),
           ...questionData,
@@ -163,6 +164,12 @@ const Assessments = () => {
 
         updatedJobs = jobs.map((job) => {
           if (job.id === selectedJob) {
+            const isQuestionExists = job.assignments?.some((q)=> q.question === questionData.question)
+            console.log(job.assignments);
+            console.log(questionData)
+            if(isQuestionExists){
+              throw new Error('question already exists');
+            }
             return {
               ...job,
               assignments: [...(job.assignments || []), newQuestion],
@@ -185,6 +192,9 @@ const Assessments = () => {
       );
       resetForm();
     } catch (error) {
+      error.message === 'question already exists' ?
+      showSnackbar('Question already exists', "error")
+      :
       showSnackbar(`Error ${editingQuestionId ? "updating" : "saving"} question`, "error");
     }
   };
@@ -261,7 +271,7 @@ const Assessments = () => {
             </div>
             <div className="relative">
               <select
-                className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 value={selectedJob || ""}
                 onChange={handleChange}
               >
@@ -289,8 +299,8 @@ const Assessments = () => {
                     Questions for {getSelectedJobTitle()}
                   </h2>
                 </div>
-                <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">
-                  {questions.length} Questions
+                <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm font-medium"> 
+                {questions.length === 1 ? <span>{questions.length} Question</span>: <span>{questions.length} Questions</span>}
                 </span>
               </div>
 
