@@ -9,7 +9,7 @@ const statusColors = {
 };
 const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   const [showAlert, setShowAlert] = useState(false);
-  const resumeLink = candidate.resumeLink || "";
+  const resumeLink = candidate.resumeLink;
   const [copySuccess, setCopySuccess] = useState(false);
 
   const handleStatusUpdate = (newStatus) => {
