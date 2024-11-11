@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Home, Users, Briefcase, ClipboardCheck } from 'lucide-react';
 
 const NavigationHeader = () => {
   const [activeItem, setActiveItem] = useState('home');
-
+  const location = useLocation();
   const navItems = [
     { id: 'home', label: 'Home', icon: Home, path: '/' },
     { id: 'jobs', label: 'Jobs', icon: Briefcase, path: '/jobs' },
@@ -12,11 +12,23 @@ const NavigationHeader = () => {
   ];
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 px-20">
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-16">
           {/* Logo Section */}
-          <Link 
+          {location.pathname === '/' ? (
+            <div className="flex-shrink-0 flex items-center">
+            <div className="relative group">
+              <h1 className="relative text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 hover:from-blue-500 hover:to-purple-700 transition-all duration-300">
+                ENT
+                <span className="inline-block">NT</span>
+              </h1>
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full" />
+              <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-purple-400 rounded-full" />
+            </div>
+          </div>                 
+          ):(
+            <Link 
             to="/" 
             className="flex items-center space-x-2"
             onClick={() => setActiveItem('home')}
@@ -26,6 +38,7 @@ const NavigationHeader = () => {
             </div>
             <span className="font-semibold text-gray-900">HOME</span>
           </Link>
+          )}
 
           {/* Navigation Links */}
           <div className="flex items-center space-x-1">

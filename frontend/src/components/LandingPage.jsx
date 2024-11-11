@@ -54,14 +54,14 @@ const LandingPage = () => {
             }`}
           >
             <Link 
-              href="/jobs"
+              to="/jobs"
               className="inline-flex items-center px-8 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors mx-2"
             >
               View Jobs
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link 
-              href="/assessments"
+              to="/assessments"
               className="inline-flex items-center px-8 py-3 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors mx-2"
             >
               Assessments
