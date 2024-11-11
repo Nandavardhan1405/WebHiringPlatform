@@ -201,7 +201,7 @@ const JobDashboard = () => {
           {filteredJobs.map((job) => (
             <div
               key={job.id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1"
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03] cursor-default"
             >
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">

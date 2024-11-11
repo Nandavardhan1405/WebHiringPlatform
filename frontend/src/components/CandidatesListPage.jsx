@@ -35,12 +35,13 @@ const CandidateListPage = ({ candidates, onSelectCandidate, searchTerm, setSearc
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredCandidates.map((candidate) => (
-            <div key={candidate.id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer" onClick={() => onSelectCandidate(candidate)}>
+            <div key={candidate.id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-default" >
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 
                       className="text-xl font-semibold text-gray-800 hover:text-blue-600 cursor-pointer"
+                      onClick={() => onSelectCandidate(candidate)}
                     >
                       {candidate.name}
                     </h3>
@@ -55,7 +56,7 @@ const CandidateListPage = ({ candidates, onSelectCandidate, searchTerm, setSearc
 
                 <div className="flex justify-between items-center">
                   <p className="text-sm text-gray-600">{candidate.experience} experience</p>
-                  <Button variant="outline">
+                  <Button variant="outline" onClick={ () => { window.open(candidate.resumeLink,'_blank') }}>
                     <Download size={16} />
                     Resume
                   </Button>

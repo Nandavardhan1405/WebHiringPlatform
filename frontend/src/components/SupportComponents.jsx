@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Badge = ({ children, className = "" }) => (
-  <span className={`px-2 py-1 rounded-full text-sm font-medium ${className}`}>
+  <span className={`px-3 py-1 rounded-full text-sm font-medium ${className}`}>
     {children}
   </span>
 );

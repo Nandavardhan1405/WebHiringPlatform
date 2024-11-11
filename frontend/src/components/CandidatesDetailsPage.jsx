@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { Download, ArrowLeft, Copy, Link, Check, Pencil } from "lucide-react";
 import { Badge, Button, Select } from "./SupportComponents.jsx";
 import { useNavigate } from "react-router-dom";
-
+const statusColors = {
+  "Under Review": "bg-yellow-100 text-yellow-800",
+  "Interview Scheduled": "bg-blue-100 text-blue-800",
+  "Rejected": "bg-red-100 text-red-800",
+  "Hired": "bg-green-100 text-green-800"
+};
 const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [resumeLink, setResumeLink] = useState(candidate.resumeLink || "");
@@ -40,23 +45,23 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm cursor-default">
       <div className="bg-white rounded-2xl shadow-2xl max-w-3xl mx-auto w-full p-8 space-y-8">
         <Button
           onClick={onBack}
           variant="secondary"
-          className="group hover:bg-gray-100"
+          className="group hover:bg-gray-50"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
           <span className="ml-2">Back to List</span>
         </Button>
 
-        <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 space-y-8">
+        <div className="bg-gray-50 rounded-2xl shadow-xl p-8 space-y-8">
           <div className="flex justify-between items-start">
             <h2 className="text-3xl font-bold text-gray-800 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               {candidate.name}
             </h2>
-            <Badge className="text-lg py-2 px-4 rounded-full shadow-md" variant={candidate.status}>
+            <Badge className={statusColors[candidate.status]}>
               {candidate.status}
             </Badge>
           </div>
