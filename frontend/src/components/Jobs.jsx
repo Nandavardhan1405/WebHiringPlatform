@@ -5,7 +5,6 @@ import { Plus, Edit, Trash2, Users, Calendar, Search, X } from "lucide-react";
 const JobDashboard = () => {
   const navigate = useNavigate();
 
-  // Sample candidate data generator
   const generateRandomCandidates = () => {
     const skills = [
       ["React", "JavaScript", "TypeScript"],
@@ -44,7 +43,7 @@ const JobDashboard = () => {
     }));
   };
 
-  // Initial sample data
+
   const initialJobs = [
     {
       id: "1",
@@ -66,7 +65,6 @@ const JobDashboard = () => {
     },
   ];
 
-  // Initialize state with data from localStorage or initial sample data
   const [jobs, setJobs] = useState(() => {
     const savedJobs = localStorage.getItem("jobs")
     if (savedJobs) {
@@ -89,7 +87,6 @@ const JobDashboard = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
 
-  // Save to localStorage whenever jobs change
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
   }, [jobs]);
@@ -156,10 +153,9 @@ const JobDashboard = () => {
   );
 
 
-  // Rest of the component remains the same...
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
-  {/* Header Section */}
+  
   <div className="max-w-7xl mx-auto">
     <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
       <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">Job Postings</h1>
@@ -172,7 +168,6 @@ const JobDashboard = () => {
       </button>
     </div>
 
-    {/* Search Section */}
     <div className="relative mb-8">
       <div className="relative">
         <Search
@@ -197,7 +192,6 @@ const JobDashboard = () => {
       </div>
     </div>
 
-    {/* Jobs Grid */}
     <div className="container mx-auto px-4 py-6">
       <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredJobs.map((job) => (
@@ -251,7 +245,6 @@ const JobDashboard = () => {
       </div>
     </div>
 
-    {/* Modal */}
     {isModalOpen && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
         <div className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-lg p-6 transform transition-all">

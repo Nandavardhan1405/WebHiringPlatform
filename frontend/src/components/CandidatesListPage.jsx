@@ -10,7 +10,6 @@ const statusColors = {
 };
 
 const CandidateListPage = ({ candidates, onSelectCandidate, searchTerm, setSearchTerm }) => {
-  //console.log(candidates);
   const filteredCandidates = candidates.filter(candidate =>
     candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     candidate.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()))

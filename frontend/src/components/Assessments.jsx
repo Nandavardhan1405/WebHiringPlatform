@@ -34,7 +34,6 @@ const Assessments = () => {
     severity: "success",
   });
 
-  // Load jobs from localStorage with error handling
   useEffect(() => {
     try {
       const savedJobs = localStorage.getItem("jobs");
@@ -46,7 +45,6 @@ const Assessments = () => {
     }
   }, []);
 
-  // Load questions when job selection changes
   useEffect(() => {
     if (selectedJob) {
       const jobData = jobs.find((j) => j.id === selectedJob);
@@ -140,7 +138,7 @@ const Assessments = () => {
 
       let updatedJobs;
       if (editingQuestionId) {
-        // Update existing question
+      
         updatedJobs = jobs.map((job) => {
           if (job.id === selectedJob) {
             return {
@@ -155,7 +153,7 @@ const Assessments = () => {
           return job;
         });
       } else {
-        // Add new question
+      
 
         const newQuestion = {
           id: Date.now().toString(),
@@ -180,11 +178,11 @@ const Assessments = () => {
         });
       }
 
-      // Save to localStorage
+      
       localStorage.setItem("jobs", JSON.stringify(updatedJobs));
       setJobs(updatedJobs);
 
-      // Update local questions state
+      
       const jobData = updatedJobs.find((j) => j.id === selectedJob);
       setQuestions(jobData.assignments || []);
 
@@ -262,7 +260,6 @@ const Assessments = () => {
   return(
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-8">
-    {/* Job Selection Card */}
     <Card className="overflow-hidden border-0 shadow-lg shadow-slate-200/50 dark:bg-slate-800">
       <div className="p-4 sm:p-6">
         <div className="flex items-center gap-3 mb-4 sm:mb-6">
@@ -283,7 +280,6 @@ const Assessments = () => {
       </div>
     </Card>
 
-    {/* Questions List */}
     {selectedJob && (
       <Card className="border-0 shadow-lg shadow-slate-200/50 dark:bg-slate-800 dark:shadow-none">
         <div className="p-4 sm:p-6">
@@ -355,7 +351,6 @@ const Assessments = () => {
       </Card>
     )}
 
-    {/* Question Form */}
     {selectedJob && (
       <div className="space-y-4 sm:space-y-6">
         {!showQuestion ? (
@@ -463,7 +458,6 @@ const Assessments = () => {
     )}
   </div>
 
-  {/* Toast Notifications */}
   <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-[70%] sm:w-auto">
   {snackbar.open && (
     <div

@@ -27,7 +27,6 @@ const App = () => {
 
   const handleBackToList = () => {
     setSelectedCandidate(null);
-    // navigate(0);
   };
 
   const handleStatusUpdate = (id, newStatus) => {

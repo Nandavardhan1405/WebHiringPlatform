@@ -13,13 +13,11 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-blue-100 via-white-50 to-indigo-100 dark:bg-gradient-to-br dark:from-gray-800 dark:via-gray-900 dark:to-black flex flex-col relative">
-      {/* Animated Gradient Background */}
+
       <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-indigo-100 opacity-60 dark:from-gray-800 dark:via-gray-900 dark:to-black animate-gradient-background"></div>
 
-      {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-6 py-16 sm:py-32 relative z-10">
         <div className="text-center text-gray-900 dark:text-white">
-          {/* Animated text */}
           <div className="overflow-hidden">
             <h1 
               className={`text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 transform transition-all duration-1000 ease-out ${
@@ -33,7 +31,6 @@ const LandingPage = () => {
             </h1>
           </div>
 
-          {/* Animated buttons */}
           <div 
             className={`space-y-4 sm:space-y-0 sm:space-x-4 transition-all duration-1000 ease-out ${
               showButtons ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -57,7 +54,6 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="py-4 text-center text-gray-600 bg-white/50 dark:bg-black/50 dark:text-gray-400">
         <p>© 2024 ENTNT. All rights reserved.</p>
       </footer>

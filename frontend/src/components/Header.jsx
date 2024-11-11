@@ -24,7 +24,7 @@ const NavigationHeader = () => {
     <header className="bg-blue-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 md:pl-16 md:pr-8 shadow-sm md:shadow-md">
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-16">
-          {/* Logo Section */}
+        
           {location.pathname === '/' ? (
             <div className="flex-shrink-0 flex items-center">
               <div className="relative group">
@@ -49,7 +49,6 @@ const NavigationHeader = () => {
             </Link>
           )}
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -63,7 +62,6 @@ const NavigationHeader = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.slice(1).map(({ id, label, icon: Icon, path }) => (
               <Link
@@ -88,7 +86,6 @@ const NavigationHeader = () => {
           </div>
         </nav>
 
-        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
   <div className="md:hidden">
     <div className="px-2 pt-2 pb-3 space-y-1 bg-blue-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700">
@@ -113,7 +110,6 @@ const NavigationHeader = () => {
         </Link>
       ))}
       
-      {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
         className="flex items-center w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 ease-in-out
