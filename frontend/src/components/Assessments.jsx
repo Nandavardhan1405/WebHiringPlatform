@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { 
   PlusCircle,  
-  CheckCircle2, 
+  CheckCircle2,
+  CheckCircle, 
   XCircle, 
   Pencil, 
   Trash2, 
@@ -59,7 +60,7 @@ const Assessments = () => {
     setSnackbar({ open: true, message, severity });
     setTimeout(
       () => setSnackbar({ open: false, message: "", severity: "success" }),
-      2000
+      1500
     );
   };
 
@@ -463,28 +464,28 @@ const Assessments = () => {
       </div>
 
       {/* Toast Notifications */}
-      <div className="fixed top-10 md:bottom-4 right-4 left-4 sm:left-auto z-50">
-        {snackbar.open && (
-          <div
-            className={`${
-              snackbar.severity === "success"
-                ? "bg-green-50 border-green-200 text-green-700"
-                : snackbar.severity === "error"
-                ? "bg-red-50 border-red-200 text-red-700"
-                : "bg-blue-50 border-blue-200 text-blue-700"
-            } px-4 py-3 rounded-lg border shadow-lg flex items-center justify-center sm:justify-start gap-2 text-sm sm:text-base`}
-          >
-            {snackbar.severity === "success" ? (
-              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
-            ) : snackbar.severity === "error" ? (
-              <XCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-            ) : (
-              <Info className="w-4 h-4 sm:w-5 sm:h-5" />
-            )}
-            {snackbar.message}
-          </div>
-        )}
-      </div>
+      <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-[70%] sm:w-auto">
+      {snackbar.open && (
+        <div
+          className={`${
+            snackbar.severity === "success"
+              ? "bg-green-50 border-green-200 text-green-700"
+              : snackbar.severity === "error"
+              ? "bg-red-50 border-red-200 text-red-700"
+              : "bg-blue-50 border-blue-200 text-blue-700"
+          } px-4 py-3 rounded-lg border shadow-lg flex items-center justify-center sm:justify-start gap-2 text-sm sm:text-base animate-fade-slide`}
+        >
+          {snackbar.severity === "success" ? (
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+          ) : snackbar.severity === "error" ? (
+            <XCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+          ) : (
+            <Info className="w-4 h-4 sm:w-5 sm:h-5" />
+          )}
+          {snackbar.message}
+        </div>
+      )}
+    </div>
     </div>
   );
 };

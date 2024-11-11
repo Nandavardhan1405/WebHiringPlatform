@@ -11,7 +11,6 @@ const statusColors = {
 const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [resumeLink, setResumeLink] = useState(candidate.resumeLink || "");
-  const [isEditingLink, setIsEditingLink] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const navigate = useNavigate();
 
@@ -29,19 +28,6 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
     } catch (err) {
       console.error("Failed to copy text: ", err);
     }
-  };
-
-  const handleSaveLink = () => {
-    // Update in localStorage
-    const jobs = JSON.parse(localStorage.getItem("jobs"));
-    const updatedJobs = jobs.map(job => ({
-      ...job,
-      candidates: job.candidates?.map(c => 
-        c.id === candidate.id ? { ...c, resumeLink } : c
-      )
-    }));
-    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
-    setIsEditingLink(false);
   };
 
   return (
@@ -109,21 +95,6 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-gray-500">Resume Link</h3>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              {isEditingLink ? (
-                <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                  <input
-                    type="text"
-                    value={resumeLink}
-                    onChange={(e) => setResumeLink(e.target.value)}
-                    className="flex-1 px-4 py-2 text-sm sm:text-base border rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter resume link..."
-                  />
-                  <Button onClick={handleSaveLink} className="bg-green-500 hover:bg-green-600 w-full sm:w-auto">
-                    <Check className="h-4 w-4" />
-                    <span className="ml-2">Save</span>
-                  </Button>
-                </div>
-              ) : (
                 <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                   <input
                     type="text"
@@ -132,10 +103,6 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
                     className="flex-1 px-4 py-2 text-sm sm:text-base bg-gray-50 border rounded-lg"
                   />
                   <div className="flex gap-2">
-                    <Button onClick={() => setIsEditingLink(true)} variant="outline" className="flex-1 sm:flex-none">
-                      <Pencil className="h-4 w-4" />
-                      <span className="ml-2">Edit</span>
-                    </Button>
                     <Button 
                       onClick={handleCopyLink}
                       variant="outline"
@@ -150,13 +117,12 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
                     </Button>
                   </div>
                 </div>
-              )}
             </div>
           </div>
         </div>
 
         {showAlert && (
-          <div className="fixed bottom-4 right-4 p-4 rounded-lg bg-green-50 border border-green-200 shadow-lg animate-fade-in">
+          <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-[70%] sm:w-auto px-4 py-2 rounded-lg bg-green-50 border border-green-200 shadow-lg animate-fade-in">
             <p className="text-sm text-green-800">Status updated successfully!</p>
           </div>
         )}

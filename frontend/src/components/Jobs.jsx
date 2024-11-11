@@ -40,6 +40,7 @@ const JobDashboard = () => {
         .toISOString()
         .split("T")[0],
       notes: "Candidate application under review.",
+      resumeLink:'https://drive.google.com/file/d/17txR2R_AhTgD-tFvEe_11-LK5TDab9IB/view?usp=drivesdk'
     }));
   };
 
