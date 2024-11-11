@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   const [showText, setShowText] = useState(false);
@@ -15,7 +16,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md fixed w-full z-50 shadow-sm">
+      {/* <nav className="bg-white/80 backdrop-blur-md fixed w-full z-50 shadow-sm">
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -29,7 +30,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-4">
@@ -52,20 +53,20 @@ const LandingPage = () => {
               showButtons ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            <a 
+            <Link 
               href="/jobs"
               className="inline-flex items-center px-8 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors mx-2"
             >
               View Jobs
               <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/assessments"
               className="inline-flex items-center px-8 py-3 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors mx-2"
             >
               Assessments
               <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
