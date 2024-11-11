@@ -30,7 +30,7 @@ The app should now be running on http://localhost:3000.
 
 ## Features
 
-* ADMIN LANDING PAGE: 
+* Admin Landing Page: 
   * Admin can navigate to the Job listings section and Assessments section
 * Jobs page for Managing Job Postings: 
   * Allows an admin to Monitor,Add,Delete and Edit job postings.
