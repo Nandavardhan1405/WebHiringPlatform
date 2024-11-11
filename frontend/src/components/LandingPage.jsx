@@ -7,43 +7,29 @@ const LandingPage = () => {
   const [showButtons, setShowButtons] = useState(false);
 
   useEffect(() => {
-    // Trigger text animation after component mount
     setTimeout(() => setShowText(true), 500);
-    // Trigger buttons animation after text
     setTimeout(() => setShowButtons(true), 1500);
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
-      {/* Navigation */}
-      {/* <nav className="bg-white/80 backdrop-blur-md fixed w-full z-50 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">
-                ENTNT
-              </span>
-            </div>
-            <div className="flex items-center space-x-8">
-              <a href="/jobs" className="text-gray-600 hover:text-blue-600 transition-colors">Jobs</a>
-              <a href="/assessments" className="text-gray-600 hover:text-blue-600 transition-colors">Assessments</a>
-            </div>
-          </div>
-        </div>
-      </nav> */}
+    <div className="min-h-screen bg-gradient-to-tr from-blue-100 via-white-50 to-indigo-100 dark:bg-gradient-to-br dark:from-gray-800 dark:via-gray-900 dark:to-black flex flex-col relative">
+      {/* Animated Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-indigo-100 opacity-60 dark:from-gray-800 dark:via-gray-900 dark:to-black animate-gradient-background"></div>
 
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="text-center">
+      <div className="flex-1 flex items-center justify-center px-6 py-16 sm:py-32 relative z-10">
+        <div className="text-center text-gray-900 dark:text-white">
           {/* Animated text */}
           <div className="overflow-hidden">
             <h1 
-              className={`text-4xl md:text-6xl font-bold text-gray-900 mb-6 transform transition-all duration-1000 ease-out ${
+              className={`text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 transform transition-all duration-1000 ease-out ${
                 showText ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
               }`}
             >
               Welcome to the Future of
-              <span className="block text-blue-600 mt-2">Hiring Excellence</span>
+              <span className="block text-blue-600 dark:text-blue-400 mt-4">
+                Hiring Excellence
+              </span>
             </h1>
           </div>
 
@@ -55,14 +41,14 @@ const LandingPage = () => {
           >
             <Link 
               to="/jobs"
-              className="inline-flex items-center px-8 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors mx-2"
+              className="inline-flex items-center px-8 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 ease-in-out mx-2 dark:bg-blue-700 dark:hover:bg-blue-800"
             >
               View Jobs
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link 
               to="/assessments"
-              className="inline-flex items-center px-8 py-3 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors mx-2"
+              className="inline-flex items-center px-8 py-3 rounded-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-800 dark:hover:text-white transition-all duration-300 ease-in-out mx-2"
             >
               Assessments
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -72,7 +58,7 @@ const LandingPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="py-4 text-center text-gray-600 bg-white/50">
+      <footer className="py-4 text-center text-gray-600 bg-white/50 dark:bg-black/50 dark:text-gray-400">
         <p>© 2024 ENTNT. All rights reserved.</p>
       </footer>
     </div>

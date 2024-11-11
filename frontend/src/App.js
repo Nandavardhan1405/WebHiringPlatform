@@ -1,7 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { useState } from 'react';
-
 import LandingPage from './components/LandingPage';
 import Header from './components/Header'; // Sidebar acts as the header now
 import Jobs from './components/Jobs';

@@ -158,57 +158,57 @@ const JobDashboard = () => {
 
   // Rest of the component remains the same...
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-4 md:p-8">
-      {/* Header Section */}
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-4xl font-bold text-gray-800">Job Postings</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
+  {/* Header Section */}
+  <div className="max-w-7xl mx-auto">
+    <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+      <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">Job Postings</h1>
+      <button
+        onClick={handleAddJob}
+        className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-all duration-200 transform hover:scale-105"
+      >
+        <Plus size={20} />
+        Add New Job
+      </button>
+    </div>
+
+    {/* Search Section */}
+    <div className="relative mb-8">
+      <div className="relative">
+        <Search
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+          size={20}
+        />
+        <input
+          type="text"
+          placeholder="Search jobs by title or description..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200"
+        />
+        {searchTerm && (
           <button
-            onClick={handleAddJob}
-            className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
+            onClick={() => setSearchTerm("")}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
           >
-            <Plus size={20} />
-            Add New Job
+            <X size={20} />
           </button>
-        </div>
+        )}
+      </div>
+    </div>
 
-        {/* Search Section */}
-        <div className="relative mb-8">
-          <div className="relative">
-            <Search
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              size={20}
-            />
-            <input
-              type="text"
-              placeholder="Search jobs by title or description..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200"
-            />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm("")}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X size={20} />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Jobs Grid */}
-        <div className="container mx-auto px-4 py-6">
+    {/* Jobs Grid */}
+    <div className="container mx-auto px-4 py-6">
       <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredJobs.map((job) => (
           <div
             key={job.id}
-            className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] cursor-default"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] cursor-default"
           >
             <div className="p-4 sm:p-6">
               <div className="flex justify-between items-start mb-3 sm:mb-4 gap-2">
                 <h2
-                  className="text-lg sm:text-xl font-bold text-gray-800 hover:text-indigo-600 cursor-pointer truncate flex-1"
+                  className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer truncate flex-1"
                   onClick={() => navigate(`/candidates/${job.id}`)}
                 >
                   {job.title}
@@ -216,14 +216,14 @@ const JobDashboard = () => {
                 <div className="flex gap-1 sm:gap-2 flex-shrink-0">
                   <button
                     onClick={() => handleEditJob(job)}
-                    className="p-1.5 sm:p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200"
+                    className="p-1.5 sm:p-2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
                     aria-label="Edit job"
                   >
                     <Edit size={16} className="sm:w-[18px] sm:h-[18px]" />
                   </button>
                   <button
                     onClick={() => handleDeleteJob(job.id)}
-                    className="p-1.5 sm:p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors duration-200"
+                    className="p-1.5 sm:p-2 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-red-50 dark:hover:bg-gray-700 rounded-full transition-colors duration-200"
                     aria-label="Delete job"
                   >
                     <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" />
@@ -231,17 +231,17 @@ const JobDashboard = () => {
                 </div>
               </div>
 
-              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 line-clamp-2">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 line-clamp-2">
                 {job.description}
               </p>
 
               <div className="space-y-2 sm:space-y-3">
-                <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-                  <Users className="text-indigo-500 w-4 h-4 sm:w-[16px] sm:h-[16px]" />
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm sm:text-base">
+                  <Users className="text-indigo-500 dark:text-indigo-400 w-4 h-4 sm:w-[16px] sm:h-[16px]" />
                   <span>{job.candidates?.length || 0} candidates</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-                  <Calendar className="text-indigo-500 w-4 h-4 sm:w-[16px] sm:h-[16px]" />
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm sm:text-base">
+                  <Calendar className="text-indigo-500 dark:text-indigo-400 w-4 h-4 sm:w-[16px] sm:h-[16px]" />
                   <span>{new Date(job.postDate).toLocaleDateString()}</span>
                 </div>
               </div>
@@ -251,78 +251,79 @@ const JobDashboard = () => {
       </div>
     </div>
 
-        {/* Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-xl w-full max-w-lg p-6 transform transition-all">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                {isEditing ? "Edit Job Posting" : "Create New Job Posting"}
-              </h2>
+    {/* Modal */}
+    {isModalOpen && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-lg p-6 transform transition-all">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">
+            {isEditing ? "Edit Job Posting" : "Create New Job Posting"}
+          </h2>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Job Title <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={currentJob.title}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    placeholder="e.g. Senior Frontend Developer"
-                    required
-                  />
-                </div>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Job Title <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="title"
+                value={currentJob.title}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="e.g. Senior Frontend Developer"
+                required
+              />
+            </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="description"
-                    value={currentJob.description}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    placeholder="Enter job description..."
-                    required
-                  />
-                </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Description <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                name="description"
+                value={currentJob.description}
+                onChange={handleInputChange}
+                rows={4}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="Enter job description..."
+                required
+              />
+            </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Post Date
-                  </label>
-                  <input
-                    type="date"
-                    name="postDate"
-                    value={currentJob.postDate}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end gap-4 mt-6">
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-6 py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSaveJob}
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
-                >
-                  {isEditing ? "Save Changes" : "Create Job"}
-                </button>
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Post Date
+              </label>
+              <input
+                type="date"
+                name="postDate"
+                value={currentJob.postDate}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              />
             </div>
           </div>
-        )}
+
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="px-6 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSaveJob}
+              className="px-6 py-2 bg-indigo-600 text-white dark:bg-indigo-500 dark:hover:bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
+            >
+              {isEditing ? "Save Changes" : "Create Job"}
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
   );
 };
 
