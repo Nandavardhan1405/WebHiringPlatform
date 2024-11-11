@@ -45,37 +45,37 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm cursor-default">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-3xl mx-auto w-full p-8 space-y-8">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm cursor-default overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl m-4 p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
         <Button
           onClick={onBack}
           variant="secondary"
-          className="group hover:bg-gray-50"
+          className="group hover:bg-gray-50 text-sm sm:text-base"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
           <span className="ml-2">Back to List</span>
         </Button>
 
-        <div className="bg-gray-50 rounded-2xl shadow-xl p-8 space-y-8">
-          <div className="flex justify-between items-start">
-            <h2 className="text-3xl font-bold text-gray-800 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="bg-gray-50 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               {candidate.name}
             </h2>
-            <Badge className={statusColors[candidate.status]}>
+            <Badge className={`${statusColors[candidate.status]} whitespace-nowrap`}>
               {candidate.status}
             </Badge>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Contact Information</h3>
-                <p className="mt-2 text-gray-900">{candidate.email}</p>
-                <p className="text-gray-900">{candidate.phone}</p>
+                <p className="mt-2 text-sm sm:text-base text-gray-900 break-words">{candidate.email}</p>
+                <p className="text-sm sm:text-base text-gray-900">{candidate.phone}</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Experience</h3>
-                <p className="mt-2 text-gray-900">{candidate.experience}</p>
+                <p className="mt-2 text-sm sm:text-base text-gray-900">{candidate.experience}</p>
               </div>
             </div>
 
@@ -86,7 +86,7 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
                   {candidate.skills.map((skill, index) => (
                     <Badge 
                       key={index} 
-                      className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md hover:shadow-lg transition-shadow"
+                      className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md hover:shadow-lg transition-shadow text-xs sm:text-sm"
                     >
                       {skill}
                     </Badge>
@@ -100,7 +100,7 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
                   value={candidate.status}
                   onChange={handleStatusUpdate}
                   options={["Under Review", "Interview Scheduled", "Rejected", "Hired"]}
-                  className="mt-2"
+                  className="mt-2 w-full"
                 />
               </div>
             </div>
@@ -108,45 +108,47 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
 
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-gray-500">Resume Link</h3>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               {isEditingLink ? (
-                <div className="flex-1 flex items-center gap-2">
+                <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                   <input
                     type="text"
                     value={resumeLink}
                     onChange={(e) => setResumeLink(e.target.value)}
-                    className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 px-4 py-2 text-sm sm:text-base border rounded-lg focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter resume link..."
                   />
-                  <Button onClick={handleSaveLink} className="bg-green-500 hover:bg-green-600">
+                  <Button onClick={handleSaveLink} className="bg-green-500 hover:bg-green-600 w-full sm:w-auto">
                     <Check className="h-4 w-4" />
-                    Save
+                    <span className="ml-2">Save</span>
                   </Button>
                 </div>
               ) : (
-                <div className="flex-1 flex items-center gap-2">
+                <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                   <input
                     type="text"
                     value={resumeLink}
                     readOnly
-                    className="flex-1 px-4 py-2 bg-gray-50 border rounded-lg"
+                    className="flex-1 px-4 py-2 text-sm sm:text-base bg-gray-50 border rounded-lg"
                   />
-                  <Button onClick={() => setIsEditingLink(true)} variant="outline">
-                    <Pencil className="h-4 w-4" />
-                    Edit
-                  </Button>
-                  <Button 
-                    onClick={handleCopyLink}
-                    variant="outline"
-                    className={copySuccess ? "bg-green-50 text-green-600" : ""}
-                  >
-                    {copySuccess ? (
-                      <Check className="h-4 w-4" />
-                    ) : (
-                      <Copy className="h-4 w-4" />
-                    )}
-                    {copySuccess ? "Copied!" : "Copy"}
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button onClick={() => setIsEditingLink(true)} variant="outline" className="flex-1 sm:flex-none">
+                      <Pencil className="h-4 w-4" />
+                      <span className="ml-2">Edit</span>
+                    </Button>
+                    <Button 
+                      onClick={handleCopyLink}
+                      variant="outline"
+                      className={`flex-1 sm:flex-none ${copySuccess ? "bg-green-50 text-green-600" : ""}`}
+                    >
+                      {copySuccess ? (
+                        <Check className="h-4 w-4" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
+                      <span className="ml-2">{copySuccess ? "Copied!" : "Copy"}</span>
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
@@ -155,7 +157,7 @@ const CandidateDetailsModal = ({ candidate, onBack, onStatusUpdate }) => {
 
         {showAlert && (
           <div className="fixed bottom-4 right-4 p-4 rounded-lg bg-green-50 border border-green-200 shadow-lg animate-fade-in">
-            <p className="text-green-800">Status updated successfully!</p>
+            <p className="text-sm text-green-800">Status updated successfully!</p>
           </div>
         )}
       </div>

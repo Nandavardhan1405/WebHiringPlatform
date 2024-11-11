@@ -197,54 +197,58 @@ const JobDashboard = () => {
         </div>
 
         {/* Jobs Grid */}
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {filteredJobs.map((job) => (
-            <div
-              key={job.id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03] cursor-default"
-            >
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h2
-                    className="text-xl font-bold text-gray-800 hover:text-indigo-600 cursor-pointer truncate"
-                    onClick={() => navigate(`/candidates/${job.id}`)}
+        <div className="container mx-auto px-4 py-6">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filteredJobs.map((job) => (
+          <div
+            key={job.id}
+            className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] cursor-default"
+          >
+            <div className="p-4 sm:p-6">
+              <div className="flex justify-between items-start mb-3 sm:mb-4 gap-2">
+                <h2
+                  className="text-lg sm:text-xl font-bold text-gray-800 hover:text-indigo-600 cursor-pointer truncate flex-1"
+                  onClick={() => navigate(`/candidates/${job.id}`)}
+                >
+                  {job.title}
+                </h2>
+                <div className="flex gap-1 sm:gap-2 flex-shrink-0">
+                  <button
+                    onClick={() => handleEditJob(job)}
+                    className="p-1.5 sm:p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200"
+                    aria-label="Edit job"
                   >
-                    {job.title}
-                  </h2>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleEditJob(job)}
-                      className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200"
-                    >
-                      <Edit size={18} />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteJob(job.id)}
-                      className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors duration-200"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
+                    <Edit size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteJob(job.id)}
+                    className="p-1.5 sm:p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors duration-200"
+                    aria-label="Delete job"
+                  >
+                    <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </button>
                 </div>
+              </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-2">
-                  {job.description}
-                </p>
+              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 line-clamp-2">
+                {job.description}
+              </p>
 
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Users className="text-indigo-500" size={16} />
-                    <span>{job.candidates?.length || 0} candidates</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Calendar className="text-indigo-500" size={16} />
-                    <span>{new Date(job.postDate).toLocaleDateString()}</span>
-                  </div>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
+                  <Users className="text-indigo-500 w-4 h-4 sm:w-[16px] sm:h-[16px]" />
+                  <span>{job.candidates?.length || 0} candidates</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
+                  <Calendar className="text-indigo-500 w-4 h-4 sm:w-[16px] sm:h-[16px]" />
+                  <span>{new Date(job.postDate).toLocaleDateString()}</span>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
+    </div>
 
         {/* Modal */}
         {isModalOpen && (
