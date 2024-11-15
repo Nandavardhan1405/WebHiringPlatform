@@ -15,7 +15,7 @@ git clone https://github.com/Nandavardhan1405/WebHiringPlatform.git
 ```
 #### 2. Change the Directory
 ```
-cd frontend
+cd WebHiringPlatform/frontend
 ```
 #### 3. Install Required
 ```
