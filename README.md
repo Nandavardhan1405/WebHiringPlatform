@@ -1,5 +1,5 @@
 
-# WEB HIRING PLATFORM - ENTNT
+# WEB HIRING PLATFORM
 
 This project is a React-based web application designed for hiring platforms. It provides an admin dashboard for managing job postings, tracking candidates, and creating job-specific assessments. The app streamlines the hiring process by allowing admins to post jobs, review candidate details, and assign tailored assessments for each position.
 ## Installation and Setup
