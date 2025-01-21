@@ -55,7 +55,7 @@ const LandingPage = () => {
       </div>
 
       <footer className="py-4 text-center text-gray-600 bg-white/50 dark:bg-black/50 dark:text-gray-400">
-        <p>© 2024 ENTNT. All rights reserved.</p>
+        <p>© 2024 WHP. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -29,8 +29,7 @@ const NavigationHeader = () => {
             <div className="flex-shrink-0 flex items-center">
               <div className="relative group">
                 <h1 className="relative text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 hover:from-blue-500 hover:to-purple-700 transition-all duration-300 dark:from-purple-400 dark:to-blue-600 dark:hover:from-purple-500 dark:hover:to-blue-700">
-                  ENT
-                  <span className="inline-block">NT</span>
+                  WHP
                 </h1>
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 dark:bg-purple-500 rounded-full" />
                 <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-purple-400 dark:bg-blue-500 rounded-full" />
